@@ -7,7 +7,12 @@ ENV DEBUG=${DEBUG:-false}
 RUN \
     apt-get update && \
     apt-get upgrade && \
-    apt-get install rsync && \
+
+#RSYNC
+    apt-get install \
+        dnsutils \
+        rsync \
+        inotify-tools && \
 
 #CLEANUP
     apt-get autoremove && \
@@ -23,4 +28,4 @@ RUN \
         rm -rf /var/lib/apt/lists/* /tmp/*; \
     fi
 
-EXPOSE 873
+COPY rootfs/ /
