@@ -5,7 +5,7 @@
 SOURCE="${1}"
 shift
 
-#TEST='rsync -vq $FILE rsync://$(read -a IPS <<< "$(dig +short plex.default.svc.cluster.local)" && echo ${IPS[0]})/Unsorted'
+#TEST='rsync -vq $FILE rsync://$(read -a IPS <<< "$(dig +short plex.default.svc.cluster.local @100.64.0.10)" && echo ${IPS[0]})/Unsorted'
 #TEST='rsync -vq $FILE rsync://$(read -a IPS <<< "$(dig +short google.com)" && echo ${IPS[0]})/Unsorted'
 
 # Check if inotofywait is installed.
