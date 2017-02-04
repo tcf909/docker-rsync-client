@@ -5,9 +5,6 @@
 SOURCE="${1}"
 shift
 
-#TEST='rsync -vq $FILE rsync://$(read -a IPS <<< "$(dig +short plex.default.svc.cluster.local @100.64.0.10)" && echo ${IPS[0]})/Unsorted'
-#TEST='rsync -vq $FILE rsync://$(read -a IPS <<< "$(dig +short google.com)" && echo ${IPS[0]})/Unsorted'
-
 # Check if inotofywait is installed.
 hash inotifywait 2>/dev/null
 if [ $? -eq 1 ]; then
@@ -21,6 +18,8 @@ WAITING=()
 
 RUN() {
 
+    [[ "${DEBUG}" == "true" ]] && set -x
+
     FILE="${FILE}"
 
     [[ -z "${FILE}" ]] && echo "\$FILE not set. Exiting." && exit 1
@@ -33,8 +32,10 @@ RUN() {
 
 }
 
-inotifywait -m -e close_write -e moved_to --format '%w%f' ${SOURCE} | \
+inotifywait -m -e close_write -e moved_to --format '%w%f' "${SOURCE}" | \
 while read TFILE; do
+
+    [[ "${DEBUG}" == "true" ]] && set -x
 
     [[ "${RUNNING}" == 1 ]] && WAITING+=("${TFILE}") && continue
 
