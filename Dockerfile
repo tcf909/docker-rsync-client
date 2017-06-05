@@ -8,9 +8,7 @@ RUN \
     apt-get upgrade && \
 
 #Debug
-    if [ "${DEBUG}" = "true" ]; then \
-            apt-get install vim iptables net-tools iputils-ping mtr tcpdump; \
-    fi && \
+    apt-get install vim iptables net-tools iputils-ping mtr tcpdump && \
 
 #RSYNC
     apt-get install \
