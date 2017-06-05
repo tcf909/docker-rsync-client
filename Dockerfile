@@ -14,10 +14,12 @@ RUN \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+ARG DEBUG=true
+
 RUN \
     if [ "${DEBUG}" = "true" ]; then \
         apt-get update && \
-        apt-get install iptables net-tools iputils-ping mtr && \
+        apt-get install iptables net-tools iputils-ping mtr tcpdump&& \
         apt-get autoremove && \
         apt-get clean && \
         rm -rf /var/lib/apt/lists/* /tmp/*; \
